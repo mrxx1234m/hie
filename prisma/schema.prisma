@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users{
+  id Int @id @default(autoincrement())
+  fullname String
+  email String @unique
+  role Role @default(USER)
+  password String?
+  createdAt DateTime @default(now())
+  updateAt DateTime? @updatedAt
+  googleId String? @unique
+  isActive Boolean @default(true)
+
+  job Job[]
+}
+
+model Job{
+  id Int @id @default(autoincrement())
+  title String
+  categoryId Int
+  country String
+  salary Float
+  minAge Int
+  maxAge Int
+  duration Int
+  startWork DateTime
+  description String
+  phone String?
+  telegram String?
+  logotip String?
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+  userId Int
+  status Boolean
+
+   users Users @relation(fields: [userId],references: [id],onDelete: Cascade)
+   category Category @relation(fields: [categoryId],references: [id],onDelete: Cascade)
+
+}
+
+model Category{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  translation CategoryTranslate[]
+  job Job[]
+}
+
+model CategoryTranslate{
+  id Int @id @default(autoincrement())
+  categoryId Int
+  name String
+
+  category Category @relation(fields: [categoryId],references: [id],onDelete: Cascade)
+
+}
+
+enum Role{
+  ADMIN
+  SUPERADMIN
+  USER
+  EMPLOYER
+}
