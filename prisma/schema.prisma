@@ -62,10 +62,13 @@ model Category{
 
 model CategoryTranslate{
   id Int @id @default(autoincrement())
+  language String
   categoryId Int
   name String
 
   category Category @relation(fields: [categoryId],references: [id],onDelete: Cascade)
+
+  @@unique([categoryId,language])
 
 }
 
