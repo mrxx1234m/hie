@@ -23,6 +23,7 @@ model Users{
   updateAt DateTime? @updatedAt
   googleId String? @unique
   isActive Boolean @default(true)
+  telegramChatId String?
 
   job Job[]
 }
@@ -71,6 +72,8 @@ model CategoryTranslate{
   @@unique([categoryId,language])
 
 }
+
+
 
 enum Role{
   ADMIN

@@ -34,10 +34,9 @@ export class UpdateJobDto extends PartialType(CreateJobDto) {
         @IsNumber()
         duration:number
     
-        @ApiProperty({example:'2025-12-01',description:'Ish boshlanish vaqti'})
+        @ApiProperty({example:'2025-07-22T10:50:40.174Z',description:'Ish boshlanish vaqti'})
         @IsOptional()
-        @IsDate()
-        startWork:Date
+        startWork:string
     
         @ApiProperty({example:'Ish haqida',description:'Ish haqida toliq malumot'})
         @IsOptional()

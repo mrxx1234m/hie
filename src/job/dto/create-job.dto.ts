@@ -26,9 +26,9 @@ export class CreateJobDto {
     @IsNumber()
     duration:number
 
-    @ApiProperty({example:'2025-12-01',description:'Ish boshlanish vaqti'})
-    @IsDate()
-    startWork:Date
+    @ApiProperty({example:'2025-07-22T10:50:40.174Z',description:'Ish boshlanish vaqti'})
+    @IsString()
+    startWork:string
 
     @ApiProperty({example:'Ish haqida',description:'Ish haqida toliq malumot'})
     @IsString()

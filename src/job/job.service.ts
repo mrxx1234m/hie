@@ -31,11 +31,11 @@ export class JobService {
   }
 
   findAll() {
-    return this.prisma.job.findMany()
+    return this.prisma.job.findMany({include:{users:true,category:{include:{translation:true}}}})
   }
 
   findOne(id: number) {
-    return this.prisma.job.findFirst({where:{id:id}})
+    return this.prisma.job.findFirst({where:{id:id},include:{category:{include:{translation:true}},users:true}})
   }
 
   async update(id: number, updateJobDto: UpdateJobDto,req:any) {
