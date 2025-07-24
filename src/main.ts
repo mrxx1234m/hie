@@ -22,6 +22,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('/api', app, document);
   await createSuperAdmin()
+  app.enableCors()
 
   await app.listen(process.env.PORT ?? 3000);
   console.log(`http://localhost:${process.env.PORT || 3000}/api `);
