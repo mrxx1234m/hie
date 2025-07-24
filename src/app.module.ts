@@ -12,10 +12,11 @@ import { MailModule } from './mail/mail.module';
 import { EmailQueueModule } from './email-queue/email-queue.module';
 import { NotificationModule } from './notification/notification.module';
 import { TelegramModule } from './telegram/telegram.module';
+import { CvModule } from './cv/cv.module';
 
 
 @Module({
-  imports: [AuthorizationModule,PrismaModule, AuthModule,ConfigModule.forRoot({isGlobal: true,envFilePath:'.env'}), CategoryModule, JobModule, UploadModule, MailModule, EmailQueueModule,NotificationModule, TelegramModule ],
+  imports: [AuthorizationModule,PrismaModule, AuthModule,ConfigModule.forRoot({isGlobal: true,envFilePath:'.env'}), CategoryModule, JobModule, UploadModule, MailModule, EmailQueueModule,NotificationModule, TelegramModule, CvModule ],
   controllers: [AppController],
   providers: [AppService],
 })

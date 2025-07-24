@@ -25,6 +25,8 @@ model Users{
   isActive Boolean @default(true)
   telegramChatId String?
 
+ 
+  cv Cv[]
   job Job[]
 }
 
@@ -80,4 +82,83 @@ enum Role{
   SUPERADMIN
   USER
   EMPLOYER
+}
+
+model Cv{
+  id Int @id @default(autoincrement())
+  fullName String
+  email String 
+  phone String
+  birthday DateTime
+  locatioin String
+  descriptioin String
+  userId Int
+
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  users Users @relation(fields: [userId],references: [id],onDelete: Cascade)
+
+  experience Experience[]
+  education Education[]
+  languages Languages[]
+  skills Skills[]
+
+}
+model Skills{
+  id Int @id @default(autoincrement())
+  name String
+  cvId Int
+
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  cv Cv @relation(fields: [cvId],references: [id],onDelete: Cascade)
+
+
+}
+
+model Experience{
+  id Int @id @default(autoincrement())
+  companyName String
+  position String
+  startWork DateTime
+  endWork DateTime
+  description String
+  cvId Int
+
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  cv Cv @relation(fields: [cvId],references: [id],onDelete: Cascade)
+}
+
+model Education{
+  id Int @id @default(autoincrement())
+  educationName String
+  level String
+  specialty String
+  startEducation DateTime
+  endEducation DateTime
+  cvId Int
+
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+
+  cv Cv @relation(fields: [cvId],references: [id],onDelete: Cascade)
+
+}
+
+model Languages{
+  id Int @id @default(autoincrement())
+  lang String
+  level String
+
+  cvId Int
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+
+  cv Cv @relation(fields: [cvId],references: [id],onDelete: Cascade)
 }
