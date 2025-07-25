@@ -1,6 +1,7 @@
-export default class CustomError extends Error {
-    constructor(public status: number, public message: string) {
-      super(message);
-    }
+import { HttpException } from '@nestjs/common';
+
+export default  class CustomError extends HttpException {
+  constructor(status: number, message: string) {
+    super(message, status);
   }
-  
+}
