@@ -12,12 +12,12 @@ export class AuthorizationService {
   constructor(private readonly prisma:PrismaService,private readonly authService:AuthService){}
 
   async register(body: RegisterAuthorizationDto) {
-    const oldUser = await findUserEmail(body.email)
+    const oldUser = await this.prisma.users.findFirst({where:{email:body.email}})
     if(oldUser){
       throw new CustomError(403,'Already user register')
     }
     const hashedPassword = await bcrypt.hash(body.password, 10);
-    const result = await this.prisma.users.create({data:{fullname:body.fullName,email:body.fullName,password:hashedPassword}})
+    const result = await this.prisma.users.create({data:{fullname:body.fullName,email:body.email,password:hashedPassword}})
     const email = result.email
     const token = await this.authService.createAccessToken({email})
     return {result,token}
