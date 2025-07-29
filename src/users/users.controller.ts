@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -10,6 +10,8 @@ import { AdminGuard } from 'src/auth/admin.guard';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @ApiBearerAuth()
+  @UseGuards()
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
@@ -21,6 +23,13 @@ export class UsersController {
   findAll() {
     return this.usersService.findAll();
   }
+
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @Get('token')
+  findToken(@Req() req:any){
+    return this.usersService.findToken(req)
+  }
   
   @UseGuards(AuthGuard,AdminGuard)
   @ApiBearerAuth()
@@ -29,6 +38,8 @@ export class UsersController {
     return this.usersService.findOne(+id);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard,AdminGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(+id, updateUserDto);

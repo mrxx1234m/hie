@@ -24,6 +24,14 @@ export class UsersService {
   findOne(id: number) {
     return this.prisma.users.findFirst({where:{id:id},include:{job:true,cv:{include:{experience:true,education:true,languages:true,skills:true}}}});
   }
+  async findToken(req:any){
+    const oldUser = await this.prisma.users.findFirst({where:{email:req.user.email},include:{job:true,cv:{include:{experience:true,education:true,languages:true,skills:true}}}})
+    if(oldUser){
+      throw new CustomError(404,'User not found')
+    }
+    return 
+
+  }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     const oldUser = await this.prisma.users.update({where:{email:updateUserDto.email},data:updateUserDto})
