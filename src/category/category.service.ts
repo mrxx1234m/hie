@@ -20,11 +20,11 @@ export class CategoryService {
   }
 
   findAll() {
-    return this.prisma.category.findMany();
+    return this.prisma.category.findMany({include:{translation:true}});
   }
 
   findOne(id: number) {
-    return this.prisma.category.findFirst({where:{id:id}});
+    return this.prisma.category.findFirst({where:{id:id},include:{translation:true}});
   }
 
   async update(id: number, updateCategoryDto: UpdateCategoryDto) {
