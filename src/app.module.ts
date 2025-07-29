@@ -13,10 +13,11 @@ import { EmailQueueModule } from './email-queue/email-queue.module';
 import { NotificationModule } from './notification/notification.module';
 import { CvModule } from './cv/cv.module';
 import { UsersModule } from './users/users.module';
+import { LikedJobModule } from './liked-job/liked-job.module';
 
 
 @Module({
-  imports: [AuthorizationModule,PrismaModule, AuthModule,ConfigModule.forRoot({isGlobal: true,envFilePath:'.env'}), CategoryModule, JobModule, UploadModule, MailModule, EmailQueueModule,NotificationModule, CvModule, UsersModule ],
+  imports: [AuthorizationModule,PrismaModule, AuthModule,ConfigModule.forRoot({isGlobal: true,envFilePath:'.env'}), CategoryModule, JobModule, UploadModule, MailModule, EmailQueueModule,NotificationModule, CvModule, UsersModule, LikedJobModule ],
   controllers: [AppController],
   providers: [AppService],
 })

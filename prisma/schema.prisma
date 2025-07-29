@@ -28,9 +28,11 @@ model Users{
  
   cv Cv[]
   job Job[]
+  likedJob LikedJob[]
+
 }
 
-model Job{
+model Job{ 
   id Int @id @default(autoincrement())
   title String
   categoryId Int
@@ -49,8 +51,11 @@ model Job{
   userId Int
   status Boolean @default(false)
 
+
    users Users @relation(fields: [userId],references: [id],onDelete: Cascade)
    category Category @relation(fields: [categoryId],references: [id],onDelete: Cascade)
+
+   likedJob LikedJob[]
 
 }
 
@@ -161,4 +166,16 @@ model Languages{
 
 
   cv Cv @relation(fields: [cvId],references: [id],onDelete: Cascade)
+}
+
+model LikedJob{
+  id Int @id @default(autoincrement())
+  userId Int
+  jobId Int
+
+  users Users @relation(fields: [userId],references: [id],onDelete: Cascade)
+  job Job @relation(fields: [jobId],references: [id],onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
 }

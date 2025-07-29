@@ -1,0 +1,5 @@
+-- AddForeignKey
+ALTER TABLE "LikedJob" ADD CONSTRAINT "LikedJob_userId_fkey" FOREIGN KEY ("userId") REFERENCES "Users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "LikedJob" ADD CONSTRAINT "LikedJob_jobId_fkey" FOREIGN KEY ("jobId") REFERENCES "Job"("id") ON DELETE CASCADE ON UPDATE CASCADE;
