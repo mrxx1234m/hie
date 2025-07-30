@@ -14,11 +14,12 @@ import { NotificationModule } from './notification/notification.module';
 import { CvModule } from './cv/cv.module';
 import { UsersModule } from './users/users.module';
 import { LikedJobModule } from './liked-job/liked-job.module';
+import { UploadController } from './upload/upload.controller';
 
 
 @Module({
-  imports: [AuthorizationModule,PrismaModule, AuthModule,ConfigModule.forRoot({isGlobal: true,envFilePath:'.env'}), CategoryModule, JobModule, UploadModule, MailModule, EmailQueueModule,NotificationModule, CvModule, UsersModule, LikedJobModule ],
-  controllers: [AppController],
+  imports: [AuthorizationModule,PrismaModule, AuthModule,ConfigModule.forRoot({isGlobal: true,envFilePath:'.env'}), CategoryModule, JobModule, UploadModule, MailModule, EmailQueueModule,NotificationModule, CvModule, UsersModule, LikedJobModule,UploadModule ],
+  controllers: [AppController,UploadController],
   providers: [AppService],
 })
 export class AppModule {}
