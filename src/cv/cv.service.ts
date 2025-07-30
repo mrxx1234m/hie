@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateCvDto } from './dto/create-cv.dto';
 import { UpdateCvDto } from './dto/update-cv.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import CustomError from 'src/utils/custom-error';
 
 @Injectable()
 export class CvService {
@@ -69,6 +70,15 @@ export class CvService {
 
   findOne(id: number) {
     return this.prisma.cv.findMany({where:{id:id},include:{skills:true,languages:true,experience:true,education:true,users:true}});
+  }
+
+  async findToken(req:any){
+    const oldUser = await this.prisma.users.findFirst({where:{email:req.user.email}})
+    if(!oldUser){
+      throw new CustomError(404,'User not found')
+    }
+    const result = await this.prisma.cv.findMany({where:{userId:oldUser.id},include:{skills:true,languages:true,experience:true,education:true,users:true}})
+    return result
   }
 
   update(id: number, updateCvDto: UpdateCvDto) {
