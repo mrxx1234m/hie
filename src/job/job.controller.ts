@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UseGuards, Put } from '@nestjs/common';
 import { JobService } from './job.service';
 import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
@@ -26,7 +26,7 @@ export class JobController {
     return this.jobService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
   update(@Param('id') id: string, @Body() updateJobDto: UpdateJobDto,@Req() req:any) {
